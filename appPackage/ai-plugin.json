@@ -1,0 +1,44 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.1/schema.json",
+    "schema_version": "v2.1",
+    "name_for_human": "CRM Contact API",
+    "description_for_human": "API for retrieving contact information from CRM system",
+    "description_for_model": "API for retrieving contact information from CRM system",
+    "contact_email": "publisher-email@example.com",
+    "namespace": "staatagentpoc",
+    "capabilities": {
+        "conversation_starters": [
+            {
+                "text": "Get contact details by email address"
+            }
+        ]
+    },
+    "functions": [
+        {
+            "name": "getContactByEmail",
+            "description": "Retrieves contact information including first name, last name, and phone number based on email address",
+            "capabilities": {
+                "response_semantics": {
+                    "data_path": "$",
+                    "static_template": {
+                        "file": "./adaptiveCards/getContactByEmail.json"
+                    }
+                }
+            }
+        }
+    ],
+    "runtimes": [
+        {
+            "type": "OpenApi",
+            "auth": {
+                "type": "None"
+            },
+            "spec": {
+                "url": "apiSpecificationFile/openapi.yaml"
+            },
+            "run_for_functions": [
+                "getContactByEmail"
+            ]
+        }
+    ]
+}

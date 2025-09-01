@@ -1,0 +1,26 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.4/schema.json",
+    "version": "v1.4",
+    "name": "STAAT Agent POC",
+    "description": "Declarative agent created with Microsoft 365 Agents Toolkit can assist user in calling APIs and retrieving responses",
+    "instructions": "$[file('instruction.txt')]",
+    "actions": [
+        {
+            "id": "crmApiPlugin",
+            "file": "ai-plugin.json"
+        }
+    ],
+   "conversation_starters": [
+    {
+      "title": "Find contact",
+      "text": "Can you find details for john.doe@example.com?"
+    },
+    {
+      "title": "Get phone number",
+      "text": "What's the phone number for sarah.smith@example.com?"
+    },
+    {
+      "title": "Contact information",
+      "text": "Show me the contact info for mike.johnson@example.com"
+    }
+  ]}

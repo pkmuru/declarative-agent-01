@@ -1,0 +1,67 @@
+openapi: 3.0.0
+info:
+  title: CRM Contact API
+  description: API for retrieving contact information from CRM system
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+paths:
+  /api/contacts/by-email:
+    get:
+      operationId: getContactByEmail
+      summary: Get contact details by email address
+      description: Retrieves contact information including first name, last name, and phone number based on email address
+      parameters:
+        - name: email
+          in: query
+          required: true
+          description: Email address of the contact to retrieve
+          schema:
+            type: string
+            format: email
+            example: john.doe@example.com
+      responses:
+        '200':
+          description: Contact found successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  firstName:
+                    type: string
+                    description: Contact's first name
+                    example: John
+                  lastName:
+                    type: string
+                    description: Contact's last name
+                    example: Doe
+                  phoneNumber:
+                    type: string
+                    description: Contact's phone number
+                    example: +1-555-123-4567
+                  email:
+                    type: string
+                    description: Contact's email address
+                    example: john.doe@example.com
+        '404':
+          description: Contact not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Contact not found
+        '400':
+          description: Invalid email format
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid email format

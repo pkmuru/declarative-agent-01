@@ -1,0 +1,49 @@
+openapi: 3.0.4
+info:
+  title: CRM Contact API - Subset
+  description: API for retrieving contact information from CRM system
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+paths:
+  /api/contacts/by-email:
+    get:
+      summary: Get contact details by email address
+      description: 'Retrieves contact information including first name, last name, and phone number based on email address'
+      operationId: getContactByEmail
+      parameters:
+        - name: email
+          in: query
+          description: Email address of the contact to retrieve
+          required: true
+          explode: false
+          schema:
+            type: string
+            format: email
+            example: john.doe@example.com
+      responses:
+        '200':
+          description: Contact found successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  firstName:
+                    type: string
+                    description: Contact's first name
+                    example: John
+                  lastName:
+                    type: string
+                    description: Contact's last name
+                    example: Doe
+                  phoneNumber:
+                    type: string
+                    description: Contact's phone number
+                    example: +1-555-123-4567
+                  email:
+                    type: string
+                    description: Contact's email address
+                    example: john.doe@example.com
+components: { }
