@@ -1,17 +1,13 @@
 {
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
   "type": "AdaptiveCard",
-  "version": "1.0",
+  "version": "1.5",
   "body": [
     {
       "type": "Container",
+      "style": "emphasis",
+      "bleed": true,
       "items": [
-        {
-          "type": "TextBlock",
-          "text": "This is your adaptive card template",
-          "weight": "bolder",
-          "size": "medium"
-        },
         {
           "type": "ColumnSet",
           "columns": [
@@ -21,22 +17,30 @@
               "items": [
                 {
                   "type": "Image",
-                  "url": "https://github.com/microsoft/kiota/blob/main/vscode/microsoft-kiota/images/logo.png?raw=true",
-                  "altText": "Kiota logo",
-                  "size": "medium",
+                  "url": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%234B5563'/%3E%3Ctext x='50' y='65' text-anchor='middle' font-size='45' fill='white' font-family='Arial'%3E${if(firstName, substring(firstName, 0, 1), 'C')}${if(lastName, substring(lastName, 0, 1), '')}%3C/text%3E%3C/svg%3E",
+                  "size": "Medium",
                   "style": "person"
                 }
               ]
             },
             {
               "type": "Column",
-              "width": "auto",
+              "width": "stretch",
+              "verticalContentAlignment": "center",
               "items": [
                 {
                   "type": "TextBlock",
-                  "text": "Adaptive Card",
-                  "weight": "bolder",
-                  "wrap": true
+                  "text": "${firstName} ${lastName}",
+                  "size": "Large",
+                  "weight": "Bolder",
+                  "color": "accent"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Contact Information",
+                  "size": "Small",
+                  "color": "light",
+                  "spacing": "None"
                 }
               ]
             }
@@ -48,40 +52,117 @@
       "type": "Container",
       "items": [
         {
-          "type": "TextBlock",
-          "text": "Now that we have defined the adaptive card template, one can go to the plugin manifest file and edit it to create a card that displays the relevant information for their users.",
-          "wrap": true
-        }
-      ]
-    },
-    {
-      "type": "ColumnSet",
-      "columns": [
-        {
-          "type": "Column",
-          "width": "auto",
-          "items": [
+          "type": "ColumnSet",
+          "columns": [
             {
-              "type": "TextBlock",
-              "horizontalAlignment": "center",
-              "text": "Learn about [Adaptive Cards](https://adaptivecards.io/)",
-              "wrap": true
+              "type": "Column",
+              "width": "40",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "📧 Email",
+                  "weight": "Bolder",
+                  "color": "accent",
+                  "size": "Small"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "60",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "[${email}](mailto:${email})",
+                  "wrap": true,
+                  "color": "default"
+                }
+              ]
             }
           ]
         },
         {
-          "type": "Column",
-          "width": "auto",
-          "items": [
+          "type": "ColumnSet",
+          "columns": [
             {
-              "type": "TextBlock",
-              "horizontalAlignment": "center",
-              "text": "Learn about [API Plugin for Microsoft 365 Copilot](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/overview-api-plugins)",
-              "wrap": true
+              "type": "Column",
+              "width": "40",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "📱 Phone",
+                  "weight": "Bolder",
+                  "color": "accent",
+                  "size": "Small"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "60",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "[${phoneNumber}](tel:${phoneNumber})",
+                  "wrap": true,
+                  "color": "default"
+                }
+              ]
             }
-          ]
+          ],
+          "spacing": "Small"
         }
-      ]
+      ],
+      "spacing": "Medium",
+      "separator": true
+    },
+    {
+      "type": "ActionSet",
+      "actions": [
+        {
+          "type": "Action.OpenUrl",
+          "title": "Send Email",
+          "url": "mailto:${email}",
+          "style": "positive",
+          "iconUrl": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'/%3E%3C/svg%3E"
+        },
+        {
+          "type": "Action.OpenUrl",
+          "title": "Call Contact",
+          "url": "tel:${phoneNumber}",
+          "iconUrl": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 24 24'%3E%3Cpath d='M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z'/%3E%3C/svg%3E"
+        },
+        {
+          "type": "Action.ShowCard",
+          "title": "Add Note",
+          "card": {
+            "type": "AdaptiveCard",
+            "body": [
+              {
+                "type": "Input.Text",
+                "id": "noteText",
+                "placeholder": "Add a note about this contact...",
+                "isMultiline": true,
+                "maxLength": 500
+              },
+              {
+                "type": "ActionSet",
+                "actions": [
+                  {
+                    "type": "Action.Submit",
+                    "title": "Save Note",
+                    "style": "positive"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "spacing": "Medium"
     }
-  ]
+  ],
+  "msteams": {
+    "width": "Full"
+  }
 }
